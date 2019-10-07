@@ -22,8 +22,19 @@ $stmt->execute();
 
 </head>
 <body>
+<style type="text/css">
+	th,td {
+  		text-align: left;
+ 		 padding: 8px;
+	}
+	tr:nth-child(even){background-color: #f2f2f2}
+	h1{
+	margin-top:30px;
+	margin-left:50px;	
+	}
+</style>
 	<h1>Liste des utilisateurs :</h1>
-	<center><table border="1" class="toto"><style type="text/css">.toto {border-color:blue;}</style>
+	<center><table class="toto">
 		<tr>
 			<th>
 			Nom
@@ -68,7 +79,7 @@ $stmt->execute();
 	</center>
 	<form method="post" action="" >
 	<center>
-		<table border="1">
+		<table>
 		<th>
 		MaJ
 		</th>
@@ -110,7 +121,7 @@ $stmt->execute();
 	</table>
 	</center>
 	</form>
-	<a href="http://localhost/exophp/users/formulaire.php">link</a>
+	<center><a href="http://localhost/exophp/users/formulaire.php"><input type="button" name="sendUP" value="Inscription" class="btn btn-primary" id="sendUPDATE"/></a></center>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
