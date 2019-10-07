@@ -1,5 +1,6 @@
 <html>
 <head>
+<link href="connect.php">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 	<body>
@@ -45,30 +46,19 @@
 
 
 <?php
-function connect(){
-	try {
-		return $link = new PDO('mysql:host=localhost:3307;dbname=user',
-		'root', '');
-	} catch (PDOException $e) {
-		print "Erreur !: " . $e->getMessage() . "<br>";
-		die();
-	}
-}
+include "connect.php";
+connect();
 function check($post){
 	if(isset($post['send'])){
 		if(!empty($post['nom']) &&!empty($post['prenom'])&&!empty($post['num'])){
-
 		return true;
 		}
 	}
 	return false;
 }
-
 if(!empty($_POST['nom'])&& !empty($_POST['prenom'])&& !empty($_POST['num'])){
 $link=connect();
-
 $sql = "INSERT INTO `user`(`nom`, `prenom`, `num`) VALUES (:nom,:prenom,:num)";
-
 $stmt = $link->prepare($sql);
 $stmt->execute(array(
 	"nom" => $_POST['nom'],

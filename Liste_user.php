@@ -1,21 +1,10 @@
 <?php
-function connect(){
-	try {
-		return $link = new PDO('mysql:host=localhost:3307;dbname=user',
-		'root', '');
-	} catch (PDOException $e) {
-		print "Erreur !: " . $e->getMessage() . "<br>";
-		die();
-	}
-}
+include "connect.php";
 $link=connect();
-
 $sql = "SELECT * FROM user";
-
 $stmt = $link->prepare($sql);
 $stmt->execute();
 ?>
-
 <html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -37,6 +26,9 @@ $stmt->execute();
 	<center><table class="toto">
 		<tr>
 			<th>
+			Id
+			</th>
+			<th>
 			Nom
 			</th>
 			<th>
@@ -48,6 +40,9 @@ $stmt->execute();
 		</tr>
 		<?php foreach($stmt as $user){ ?>
 		<tr>
+		<td>
+			<?php echo $user['id']."<br>"; ?> 
+		</td>
 		<td>
 			<?php echo $user['nom']."<br>"; ?> 
 		</td>
@@ -112,7 +107,7 @@ $stmt->execute();
 		</tr>
 		<tr>
 			<td>
-				sélectionner nom a modifier :
+				sélectionner Id a modifier :
 			</td>
 			<td>
 				<input type="text" name="select" />
@@ -128,22 +123,18 @@ $stmt->execute();
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>
 <?php
-
 if(!empty($_POST['DLsuppr'])){
 $link=connect();
-
-$sql = "DELETE FROM `user` WHERE `prenom`=:prenom";
-
+$sql = "DELETE FROM `user` WHERE `id`=:id";
 $stmt = $link->prepare($sql);
 $stmt->execute(array(
-	"prenom" => $_POST['DLsuppr'],
+	"id" => $_POST['DLsuppr'],
 ));
 header('Location: http://localhost/exophp/users/Liste_user.php');
 }
-
 if(!empty($_POST['sendUP'])){
 $link=connect();
-$stmt = $link->prepare("UPDATE user SET nom = ?, prenom = ?, num = ? WHERE nom = ? ");
+$stmt = $link->prepare("UPDATE user SET nom = ?, prenom = ?, num = ? WHERE `id` = ? ");
 $stmt->execute(array($_POST['majareaN'],$_POST['majareaP'],$_POST['majareaNum'],$_POST['select']));
 header('Location: http://localhost/exophp/users/Liste_user.php');
 }
